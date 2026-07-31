@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Shlok Path Labs</title>
+<link rel="stylesheet" href="/css/style.css">
+<style>
+  body { background: #eef4f1; }
+  .admin-head { background: var(--green); color: #fff; padding: 14px 0; }
+  .admin-head .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 18px 0; }
+  .tab-btn { padding: 9px 16px; border-radius: 8px; border: none; background: #fff; font-weight: 600; cursor: pointer; font-size: 14px; box-shadow: var(--shadow); }
+  .tab-btn.active { background: var(--green); color: #fff; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); font-size: 13.5px; }
+  th, td { padding: 9px 10px; border-bottom: 1px solid #eef4f1; text-align: left; vertical-align: top; }
+  th { background: var(--light); color: var(--green); white-space: nowrap; }
+  .table-wrap { overflow-x: auto; }
+  .pill { padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+  .pill.new { background: #fff3cd; color: #7a5c00; }
+  .pill.done { background: #d9efe7; color: var(--green); }
+  .small-btn { padding: 5px 10px; font-size: 12.5px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; }
+  .sb-green { background: var(--green); color: #fff; }
+  .sb-red { background: #d9534f; color: #fff; }
+  .sb-gray { background: #e2e8e5; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+  .box { background: #fff; border-radius: 10px; padding: 18px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .box h3 { color: var(--green); margin-bottom: 10px; font-size: 17px; }
+  .counts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 16px 0; }
+  .count-card { background: #fff; border-radius: 10px; padding: 14px; text-align: center; box-shadow: var(--shadow); }
+  .count-card b { font-size: 24px; color: var(--green); display: block; }
+  .count-card span { font-size: 12.5px; color: var(--gray); }
+</style>
+</head>
+<body>
+<div class="admin-head">
+  <div class="container">
+    <b>🔬 Shlok Path Labs — Admin</b>
+    <div>
+      <a href="/" target="_blank" style="margin-right:12px;text-decoration:underline">View Website</a>
+      <button class="small-btn sb-gray" onclick="logout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="counts" id="counts"></div>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="bookings">📋 Bookings</button>
+    <button class="tab-btn" data-tab="collections">🏠 Home Collection</button>
+    <button class="tab-btn" data-tab="reports">📄 Reports</button>
+    <button class="tab-btn" data-tab="tests">🧪 Tests/Rates</button>
+    <button class="tab-btn" data-tab="photos">🖼️ Photos</button>
+    <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+  </div>
+
+  <div class="panel active" id="p-bookings"><div class="table-wrap" id="bookingsTable"></div></div>
+  <div class="panel" id="p-collections"><div class="table-wrap" id="collectionsTable"></div></div>
+
+  <div class="panel" id="p-reports">
+    <div class="box">
+      <h3>📤 Upload New Report (PDF/JPG/PNG)</h3>
+      <form id="repForm">
+        <div class="grid2">
+          <div><label>Patient Name *</label><input type="text" id="rp_name" required></div>
+          <div><label>Patient Mobile *</label><input type="tel" id="rp_phone" required pattern="[0-9]{10}" maxlength="10"></div>
+        </div>
+        <label>Report File *</label>
+        <input type="file" id="rp_file" required accept=".pdf,.jpg,.jpeg,.png">
+        <button type="submit" class="btn btn-green" style="margin-top:14px">Upload</button>
+      </form>
+      <div class="msg" id="repMsg"></div>
+    </div>
+    <div class="table-wrap" id="reportsTable"></div>
+  </div>
+
+  <div class="panel" id="p-tests">
+    <div class="box">
+      <h3>➕ Add New Test</h3>
+      <form id="testForm">
+        <div class="grid2">
+          <div><label>Test Name (English) *</label><input type="text" id="t_en" required></div>
+          <div><label>Test Name (Hindi)</label><input type="text" id="t_hi"></div>
+          <div><label>Category</label>
+            <select id="t_cat">
+              <option>Blood Test</option><option>Urine Test</option><option>Stool Test</option>
+              <option>Digital X-Ray</option><option>Health Package</option><option>Other</option>
+            </select>
+          </div>
+          <div><label>Rate (₹)</label><input type="text" id="t_rate" placeholder="Optional"></div>
+        </div>
+        <label style="display:flex;gap:8px;align-items:center;font-weight:400;margin-top:10px">
+          <input type="checkbox" id="t_show" style="width:17px;height:17px"> Show rate on website
+        </label>
+        <button type="submit" class="btn btn-green" style="margin-top:12px">Add Test</button>
+      </form>
+    </div>
+    <div class="box">
+      <label style="margin-top:0">🔍 Search Tests</label>
+      <input type="text" id="testSearch" placeholder="e.g. CBC, Thyroid, Vitamin..." oninput="renderTests()">
+      <p style="font-size:12.5px;color:var(--gray);margin-top:6px">💡 To change a rate, type the new amount in the box and click <b>Save</b> (or press Enter). "Show Rate?" controls whether the rate is visible on the website.</p>
+    </div>
+    <div class="table-wrap" id="testsTable"></div>
+  </div>
+
+  <div class="panel" id="p-photos">
+    <div class="box">
+      <h3>🖼️ Main Website Photos</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:12px">Upload photos here — they appear on the website immediately. JPG/PNG, max 10 MB.</p>
+      <div class="grid2" id="slotCards"></div>
+    </div>
+    <div class="box">
+      <h3>➕ Add Gallery Photo</h3>
+      <p style="font-size:13px;color:var(--gray)">Gallery photos are shown on the homepage in the "Our Lab" section (machines, reception, X-ray room, staff, certificates).</p>
+      <form id="galForm">
+        <label>Photo *</label>
+        <input type="file" id="gal_file" required accept=".jpg,.jpeg,.png,.webp">
+        <label>Caption (optional)</label>
+        <input type="text" id="gal_caption" maxlength="200" placeholder="e.g. Reception area">
+        <button type="submit" class="btn btn-green" style="margin-top:14px">Upload to Gallery</button>
+      </form>
+      <div class="msg" id="galMsg"></div>
+      <div id="galGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:16px"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="p-settings">
+    <div class="box">
+      <h3>⚙️ Website Settings</h3>
+      <form id="setForm">
+        <div class="grid2">
+          <div><label>Phone</label><input type="text" id="s_phone"></div>
+          <div><label>WhatsApp (with country code 91)</label><input type="text" id="s_whatsapp"></div>
+          <div><label>Email</label><input type="text" id="s_email"></div>
+          <div><label>UPI ID (for payments)</label><input type="text" id="s_upi_id" placeholder="e.g. 7905010042@ybl"></div>
+        </div>
+        <label>Address</label><input type="text" id="s_address">
+        <button type="submit" class="btn btn-green" style="margin-top:14px">Save Settings</button>
+      </form>
+      <div class="msg" id="setMsg"></div>
+    </div>
+    <div class="box">
+      <h3>🔑 Change Password</h3>
+      <form id="pwForm">
+        <div class="grid2">
+          <div><label>Old Password</label><input type="text" id="pw_old" style="-webkit-text-security:disc"></div>
+          <div><label>New Password (6+ characters)</label><input type="text" id="pw_new" style="-webkit-text-security:disc"></div>
+        </div>
+        <button type="submit" class="btn btn-green" style="margin-top:14px">Change Password</button>
+      </form>
+      <div class="msg" id="pwMsg"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+async function api(url, opts) {
+  const r = await fetch(url, opts);
+  if (r.status === 401) { location.href = '/admin/login'; throw new Error('auth'); }
+  return r.json();
+}
+function logout() { fetch('/admin/api/logout', { method: 'POST' }).then(() => location.href = '/admin/login'); }
+
+document.querySelectorAll('.tab-btn').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  $('p-' + b.dataset.tab).classList.add('active');
+}));
+
+/* ---- bookings & collections ---- */
+async function loadBookings() {
+  const rows = await api('/admin/api/bookings');
+  $('bookingsTable').innerHTML = table(rows, ['#', 'Name', 'Phone', 'Tests', 'Date', 'Note', 'Received', 'Status'],
+    r => [r.id, esc(r.name), `<a href="tel:${r.phone}">${r.phone}</a>`, esc(r.tests), r.date, esc(r.notes), r.created_at,
+      statusBtns('bookings', r)]);
+  updateCounts();
+}
+async function loadCollections() {
+  const rows = await api('/admin/api/collections');
+  $('collectionsTable').innerHTML = table(rows, ['#', 'Name', 'Phone', 'Address', 'Tests', 'Date', 'Note', 'Status'],
+    r => [r.id, esc(r.name), `<a href="tel:${r.phone}">${r.phone}</a>`, esc(r.address), esc(r.tests), r.date, esc(r.notes),
+      statusBtns('collections', r)]);
+  updateCounts();
+}
+function statusBtns(kind, r) {
+  const pill = `<span class="pill ${r.status === 'done' ? 'done' : 'new'}">${r.status === 'done' ? 'Done' : 'New'}</span>`;
+  const btn = r.status === 'done'
+    ? `<button class="small-btn sb-gray" onclick="setStatus('${kind}',${r.id},'new')">Undo</button>`
+    : `<button class="small-btn sb-green" onclick="setStatus('${kind}',${r.id},'done')">✓ Done</button>`;
+  return pill + ' ' + btn;
+}
+async function setStatus(kind, id, status) {
+  await api(`/admin/api/${kind}/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
+  kind === 'bookings' ? loadBookings() : loadCollections();
+}
+
+/* ---- reports ---- */
+async function loadReports() {
+  const rows = await api('/admin/api/reports');
+  $('reportsTable').innerHTML = table(rows, ['#', 'Patient', 'Phone', 'Code', 'File', 'Date', ''],
+    r => [r.id, esc(r.patient_name), r.phone, `<b>${r.code}</b>`, esc(r.original_name), r.created_at,
+      `<button class="small-btn sb-green" onclick="waReport('${r.phone}','${r.code}','${esc(r.patient_name)}')">💬 WhatsApp</button>
+       <button class="small-btn sb-red" onclick="delReport(${r.id})">🗑</button>`]);
+  updateCounts();
+}
+function waReport(phone, code, name) {
+  const msg = `Dear ${name},\nYour report is ready. Download it here:\n${location.origin}/reports.html\n\nMobile: ${phone}\nReport Code: *${code}*\n\nThank you,\nShlok Path Labs & Digital X-Ray`;
+  window.open('https://wa.me/91' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+}
+async function delReport(id) {
+  if (!confirm('Delete this report?')) return;
+  await api('/admin/api/reports/' + id, { method: 'DELETE' });
+  loadReports();
+}
+$('repForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const fd = new FormData();
+  fd.append('patient_name', $('rp_name').value);
+  fd.append('phone', $('rp_phone').value);
+  fd.append('file', $('rp_file').files[0]);
+  const r = await fetch('/admin/api/reports', { method: 'POST', body: fd });
+  const j = await r.json();
+  const m = $('repMsg');
+  if (j.ok) {
+    m.className = 'msg ok';
+    m.innerHTML = `✅ Uploaded successfully! <b>Report Code: ${j.code}</b> — click the 💬 WhatsApp button below to send it to the patient.`;
+    e.target.reset(); loadReports();
+  } else { m.className = 'msg err'; m.textContent = j.error || 'Upload failed'; }
+});
+
+/* ---- tests ---- */
+let allTests = [];
+async function loadTests() {
+  allTests = await api('/admin/api/tests');
+  renderTests();
+}
+function renderTests() {
+  const q = ($('testSearch').value || '').toLowerCase().trim();
+  const rows = q ? allTests.filter(r => (r.name_en + ' ' + r.name_hi + ' ' + r.category).toLowerCase().includes(q)) : allTests;
+  $('testsTable').innerHTML = table(rows, ['Test', 'Category', 'Rate (₹)', '', 'Show Rate?', 'Active', ''],
+    r => [esc(r.name_en) + (r.name_hi ? `<br><small style="color:var(--gray)">${esc(r.name_hi)}</small>` : ''),
+      r.category,
+      `<input type="text" id="rate_${r.id}" value="${r.rate || ''}" placeholder="—" style="width:80px;padding:6px 8px;font-size:14px" onkeydown="if(event.key==='Enter')saveRate(${r.id})">`,
+      `<button class="small-btn sb-green" onclick="saveRate(${r.id})">💾 Save</button>`,
+      `<button class="small-btn ${r.show_rate ? 'sb-green' : 'sb-gray'}" onclick="updTest(${r.id},{show_rate:${r.show_rate ? 0 : 1}})">${r.show_rate ? 'Yes' : 'No'}</button>`,
+      `<button class="small-btn ${r.active ? 'sb-green' : 'sb-gray'}" onclick="updTest(${r.id},{active:${r.active ? 0 : 1}})">${r.active ? 'On' : 'Off'}</button>`,
+      `<button class="small-btn sb-red" onclick="delTest(${r.id})">🗑</button>`]);
+  if (q && !rows.length) $('testsTable').innerHTML = '<div class="box" style="text-align:center;color:var(--gray)">No test found for "' + esc(q) + '"</div>';
+}
+async function updTest(id, body) {
+  await api('/admin/api/tests/' + id, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  await loadTests();
+}
+async function saveRate(id) {
+  const inp = $('rate_' + id);
+  const v = inp.value.trim();
+  if (v && !/^\d+$/.test(v)) { alert('Rate must be a number, e.g. 400'); return; }
+  await updTest(id, { rate: v });
+  const el = $('rate_' + id);
+  if (el) { el.style.borderColor = '#14a37f'; setTimeout(() => { el.style.borderColor = ''; }, 1200); }
+}
+async function delTest(id) {
+  if (!confirm('Delete this test?')) return;
+  await api('/admin/api/tests/' + id, { method: 'DELETE' });
+  loadTests();
+}
+$('testForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  await api('/admin/api/tests', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name_en: $('t_en').value, name_hi: $('t_hi').value, category: $('t_cat').value, rate: $('t_rate').value.trim(), show_rate: $('t_show').checked })
+  });
+  e.target.reset(); loadTests();
+});
+
+/* ---- photos ---- */
+const SLOTS = [
+  { kind: 'hero', label: 'Lab Front Photo', hint: 'Shown at the top of the homepage' },
+  { kind: 'logo', label: 'Logo', hint: 'Shown in the website header' },
+  { kind: 'doctor1', label: 'Dr. U. P. Kushwaha — Photo', hint: 'Shown in the Pathologists section' },
+  { kind: 'doctor2', label: 'Dr. Ruchit Uttam — Photo', hint: 'Shown in the Pathologists section' }
+];
+async function loadPhotos() {
+  const p = await api('/api/photos');
+  $('slotCards').innerHTML = SLOTS.map(s => `
+    <div style="border:1.5px solid #e0e0e0;border-radius:10px;padding:12px">
+      <b style="font-size:14px">${s.label}</b>
+      <p style="font-size:12px;color:var(--gray);margin-bottom:8px">${s.hint}</p>
+      ${p[s.kind]
+        ? `<img src="${p[s.kind]}?v=${Date.now()}" style="width:100%;max-height:130px;object-fit:contain;border-radius:8px;background:#f4faf8;margin-bottom:8px">
+           <button class="small-btn sb-red" onclick="delSlot('${s.kind}')" style="margin-bottom:8px">🗑 Remove</button>`
+        : `<p style="font-size:12.5px;color:#b58900;margin-bottom:8px">No photo yet</p>`}
+      <input type="file" id="slot_${s.kind}" accept=".jpg,.jpeg,.png,.webp" style="font-size:12.5px;margin-bottom:8px">
+      <button class="small-btn sb-green" onclick="uploadSlot('${s.kind}')">⬆ Upload</button>
+    </div>`).join('');
+  $('galGrid').innerHTML = p.gallery.map(g => `
+    <div style="border:1.5px solid #e0e0e0;border-radius:10px;overflow:hidden">
+      <img src="${g.src}" style="width:100%;height:110px;object-fit:cover">
+      <div style="padding:6px 8px;font-size:12px">${g.caption ? esc(g.caption) : '<span style="color:#aaa">No caption</span>'}<br>
+      <button class="small-btn sb-red" style="margin-top:5px" onclick="delGallery(${g.id})">🗑 Delete</button></div>
+    </div>`).join('') || '<p style="color:var(--gray);font-size:13px">No gallery photos yet</p>';
+}
+async function uploadSlot(kind) {
+  const inp = $('slot_' + kind);
+  if (!inp.files.length) { alert('Please choose a photo first'); return; }
+  const fd = new FormData();
+  fd.append('kind', kind);
+  fd.append('file', inp.files[0]);
+  const r = await fetch('/admin/api/photos', { method: 'POST', body: fd });
+  const j = await r.json();
+  if (!j.ok) { alert(j.error || 'Upload failed'); return; }
+  loadPhotos();
+}
+async function delSlot(kind) {
+  if (!confirm('Remove this photo?')) return;
+  await api('/admin/api/photos/slot/' + kind, { method: 'DELETE' });
+  loadPhotos();
+}
+async function delGallery(id) {
+  if (!confirm('Delete this photo?')) return;
+  await api('/admin/api/photos/' + id, { method: 'DELETE' });
+  loadPhotos();
+}
+$('galForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const fd = new FormData();
+  fd.append('kind', 'gallery');
+  fd.append('caption', $('gal_caption').value);
+  fd.append('file', $('gal_file').files[0]);
+  const r = await fetch('/admin/api/photos', { method: 'POST', body: fd });
+  const j = await r.json();
+  const m = $('galMsg');
+  if (j.ok) { m.className = 'msg ok'; m.textContent = '✅ Photo uploaded'; e.target.reset(); loadPhotos(); }
+  else { m.className = 'msg err'; m.textContent = j.error || 'Upload failed'; }
+});
+
+/* ---- settings ---- */
+async function loadSettings() {
+  const s = await api('/admin/api/settings');
+  ['phone', 'whatsapp', 'email', 'upi_id', 'address'].forEach(k => { if ($('s_' + k)) $('s_' + k).value = s[k] || ''; });
+}
+$('setForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const body = {};
+  ['phone', 'whatsapp', 'email', 'upi_id', 'address'].forEach(k => body[k] = $('s_' + k).value.trim());
+  await api('/admin/api/settings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  $('setMsg').className = 'msg ok'; $('setMsg').textContent = '✅ Settings saved';
+});
+$('pwForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const r = await fetch('/admin/api/change-password', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ old_password: $('pw_old').value, new_password: $('pw_new').value })
+  });
+  const j = await r.json();
+  const m = $('pwMsg');
+  if (j.ok) { m.className = 'msg ok'; m.textContent = '✅ Password changed'; e.target.reset(); }
+  else { m.className = 'msg err'; m.textContent = j.error || 'Failed'; }
+});
+
+/* ---- helpers ---- */
+function esc(s) { return String(s || '').replace(/</g, '&lt;'); }
+function table(rows, heads, mapFn) {
+  if (!rows.length) return '<div class="box" style="text-align:center;color:var(--gray)">Nothing here yet</div>';
+  return `<table><thead><tr>${heads.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(r => `<tr>${mapFn(r).map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+async function updateCounts() {
+  const [b, c, rp] = await Promise.all([api('/admin/api/bookings'), api('/admin/api/collections'), api('/admin/api/reports')]);
+  $('counts').innerHTML = `
+    <div class="count-card"><b>${b.filter(x => x.status !== 'done').length}</b><span>New Bookings</span></div>
+    <div class="count-card"><b>${c.filter(x => x.status !== 'done').length}</b><span>New Home Collections</span></div>
+    <div class="count-card"><b>${b.length}</b><span>Total Bookings</span></div>
+    <div class="count-card"><b>${rp.length}</b><span>Total Reports</span></div>`;
+}
+
+loadBookings(); loadCollections(); loadReports(); loadTests(); loadPhotos(); loadSettings();
+setInterval(() => { loadBookings(); loadCollections(); }, 30000);
+</script>
+</body>
+</html>

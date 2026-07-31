@@ -1,0 +1,14 @@
+node_modules/
+uploads/
+data.sqlite
+data.sqlite-wal
+data.sqlite-shm
+*.log
+.env
+.DS_Store
+Thumbs.db
+scratch_*
+document/
+shop_card/
+shlok-path-labs-form.html
+.claude/

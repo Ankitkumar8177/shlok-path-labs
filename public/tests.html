@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tests & Rates — Shlok Path Labs & Digital X-Ray, Lucknow</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="page-hero">
+  <h2 data-i18n="tests_title"></h2>
+  <p data-i18n="tests_sub"></p>
+</div>
+
+<section>
+  <div class="container test-list">
+    <input type="text" id="testSearch"
+      style="width:100%;padding:12px 14px;border:1.5px solid #cfd8d3;border-radius:10px;font-size:15px;margin-bottom:18px;background:#fff;box-shadow:var(--shadow)">
+  </div>
+  <div class="container test-list" id="testList">
+    <p style="text-align:center;color:var(--gray)">Loading…</p>
+  </div>
+  <div style="text-align:center;margin-top:10px">
+    <a class="btn btn-green" href="tel:7905010042" data-i18n="cta_call"></a>
+    <a class="btn btn-yellow" href="/booking.html" style="margin-left:8px" data-i18n="cta_book"></a>
+  </div>
+</section>
+
+<script src="/js/main.js"></script>
+<script>
+initPage('tests');
+(async function(){
+  const box = document.getElementById('testList');
+  const search = document.getElementById('testSearch');
+  const lang = getLang();
+  search.placeholder = lang === 'hi' ? '🔍 टेस्ट खोजें... जैसे CBC, Thyroid, Vitamin' : '🔍 Search test... e.g. CBC, Thyroid, Vitamin';
+  try {
+    const tests = await (await fetch('/api/tests')).json();
+    const byCat = {};
+    tests.forEach(x => { (byCat[x.category] = byCat[x.category] || []).push(x); });
+    box.innerHTML = '';
+    const icons = { 'Blood Test': '🩸', 'Urine Test': '🧪', 'Stool Test': '🧪', 'Digital X-Ray': '🩻', 'Health Package': '📦', 'Other': '🏥' };
+    for (const [cat, arr] of Object.entries(byCat)) {
+      const items = arr.map(x => {
+        const nm = (lang === 'hi' && x.name_hi) ? x.name_hi : x.name_en;
+        const rate = x.rate ? '₹' + x.rate : '<span data-i18n="call_rate">' + t('call_rate') + '</span>';
+        const key = (x.name_en + ' ' + (x.name_hi || '') + ' ' + x.category).toLowerCase().replace(/"/g, '&quot;');
+        return `<li data-search="${key}"><span>${nm}</span><span class="rate">${rate}</span></li>`;
+      }).join('');
+      box.insertAdjacentHTML('beforeend',
+        `<div class="test-cat"><h4>${icons[cat] || '🏥'} ${cat}</h4><ul>${items}</ul></div>`);
+    }
+    const noRes = lang === 'hi' ? 'कोई टेस्ट नहीं मिला — कॉल करें: 7905010042' : 'No test found — please call 7905010042';
+    box.insertAdjacentHTML('beforeend', `<p id="noResult" style="display:none;text-align:center;color:var(--gray);padding:14px">${noRes}</p>`);
+    search.addEventListener('input', function () {
+      const q = this.value.toLowerCase().trim();
+      let total = 0;
+      box.querySelectorAll('.test-cat').forEach(catBox => {
+        let visible = 0;
+        catBox.querySelectorAll('li').forEach(li => {
+          const show = !q || li.dataset.search.includes(q);
+          li.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        catBox.style.display = visible ? '' : 'none';
+        total += visible;
+      });
+      document.getElementById('noResult').style.display = total ? 'none' : '';
+    });
+  } catch (e) {
+    box.innerHTML = '<p style="text-align:center">Could not load the list — please refresh the page or call 7905010042</p>';
+  }
+})();
+</script>
+</body>
+</html>

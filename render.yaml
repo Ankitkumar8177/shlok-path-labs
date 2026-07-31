@@ -1,0 +1,27 @@
+# Render Blueprint for Shlok Path Labs website.
+# On render.com: New +  ->  Blueprint  ->  connect this repo. Render reads this file.
+services:
+  - type: web
+    name: shlok-path-labs
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: SESSION_SECRET
+        generateValue: true   # Render generates a strong secret automatically
+
+      # ----- OPTIONAL: keep data forever (paid plan) -----
+      # Free plan wipes bookings / uploaded reports / uploaded photos on every
+      # redeploy or restart. To keep them permanently, upgrade the service to a
+      # paid plan, then uncomment BOTH the DATA_DIR line below and the `disk:`
+      # block, and redeploy.
+      # - key: DATA_DIR
+      #   value: /var/data
+
+    # disk:
+    #   name: shlok-data
+    #   mountPath: /var/data
+    #   sizeGB: 1

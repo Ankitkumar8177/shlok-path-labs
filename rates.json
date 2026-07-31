@@ -1,0 +1,1392 @@
+[
+ {
+  "name": "ABORH",
+  "rate": 100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "ACE (Angioresin Converting Enzyme)",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Acid Phosphates",
+  "rate": 400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Acid Phosphates with Prostatic Fractic",
+  "rate": 300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Acid Phosphates without Frac",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "ACLA (Anti Cardio Lipin Antybodies)",
+  "rate": 1800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "ADA (Adenosine Deaminase)",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "AEC (Absolute Eosinophils Count)",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "AFB Staining",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "AFP (Alpha Feto Protein)",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "AG Ratio",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Allargy Profile",
+  "rate": 7000,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Albumin",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Alkaline Phosphate",
+  "rate": 100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "AMH (Anty Molerin Hormones)",
+  "rate": 2000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Ammonia",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Amylase",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "ANA (Anty Nuclear Anty Bodies)",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Anemia Profile",
+  "rate": 4000,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Anti do DNA",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Anti HIV lgG",
+  "rate": 2200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Anti CCP",
+  "rate": 1600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Anti Hapatites E",
+  "rate": 3000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Anti lgM",
+  "rate": 1300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Anti Malaria Antibodies Elisa Test",
+  "rate": 650,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Anti Natal Profile",
+  "rate": 1500,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Anti Smooth Muscle Antibody",
+  "rate": 1800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Anti Sperm Antibody",
+  "rate": 900,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "APLA (Anti Phospolipid Antibody)",
+  "rate": 3000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "APTT",
+  "rate": 350,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Arthritis Profile",
+  "rate": 1600,
+  "cat": "Health Package"
+ },
+ {
+  "name": "ASO (Qualitative)",
+  "rate": 300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "ASO (Quantitative)",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Oral Swab C/S",
+  "rate": 600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Beta HCG",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Beta Pigment for Urine",
+  "rate": 150,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Bita Salt for Urine",
+  "rate": 100,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Bilirubin (Direct)",
+  "rate": 100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Bilirubin (T/D/I)",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Bilirubin (Total)",
+  "rate": 100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Biopsy (Large Specimen)(Esophagectomy,Gastrectomy,Mastectomy , Hemi/Total Colectomy ,Large Bone Resection ,Ovarian Tumor Resection ,Radical Nephrctomy for Cancer,Radical Neck Dissection ,Radical Hysterectomy,Radical Orchidectomy ,Soft Tissue Resections,Head & Neck Resection )",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Biopsy (Medium Specimen)",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Biopsy (Small Specimen)",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Blood c/s",
+  "rate": 1600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Blood Group & RH Factor",
+  "rate": 100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Blood Indicates (MCV,MCH,MCHC)",
+  "rate": 170,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "BT & CT",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "BUN (Blood Urea Nitrogen)",
+  "rate": 100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "C.S.F. (Complete Examination)",
+  "rate": 600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "CA-125 (Market for Ovarian Cvsl)",
+  "rate": 1400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "CA-15.3 (Market for Breast Cancer)",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "CA-19.9 (Market for Pancreatic Cancer)",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Cancer Profile (Female)",
+  "rate": 8500,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Cancer Profile (Male)",
+  "rate": 8000,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Calcium",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "CBC (Complete Blood Count),ESR",
+  "rate": 400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "CEA (Carcinoembronic Antigen)",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Chikun Gunia lgM",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Cholesterol Total",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Choride",
+  "rate": 600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Coagulation Profile",
+  "rate": 3200,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Comp. Fluid Examination",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Comp. Heamogram Exam (CBC)",
+  "rate": 400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Complete Health Checkup",
+  "rate": 2000,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Complete C3",
+  "rate": 800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Complete C4",
+  "rate": 850,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Coomb’s Test Direct",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Coomb’s Test Indirect",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Copper",
+  "rate": 800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Cortisol",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Cortisol Two Sample",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "CPK-MB",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "CPK- Total",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Creatinine",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "CRP (Qualitative)",
+  "rate": 300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "CRP (Quantitative)",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Diabetic Profile",
+  "rate": 1500,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Dengue Virus lgG & lgM Antibodies",
+  "rate": 1400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Dengue Virusn Ns1, lgG ,IgGAntibodies",
+  "rate": 1400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "D-Dimer",
+  "rate": 2000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "DHEA (Dihydroepiandrosterone)",
+  "rate": 4400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "DHEA (Dihydroepiandrosterone Sulphates)",
+  "rate": 2100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "DLC (Differential Leucocytes Counts)",
+  "rate": 50,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "ECG",
+  "rate": 400,
+  "cat": "Other"
+ },
+ {
+  "name": "eGFR",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "E2 (Estradiol)",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "E3 (Estriol)",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "ESR (Westergeon)",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "ESR (Wintrobe)",
+  "rate": 100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Estrogen",
+  "rate": 1400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Fatal HB",
+  "rate": 800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Fasting Blood Sugar (FBS)",
+  "rate": 50,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "FDP",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Ferritin",
+  "rate": 900,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Fibronogen",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Filarial Antigen",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Fluid for Malignant Cells",
+  "rate": 800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Fluid for AFB Stain",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Fluid for Gram Stain",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Fluid for PCR",
+  "rate": 2500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "FNAC",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Folic Acid",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Free Beta HCG",
+  "rate": 1750,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Free PSA",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "FT3, FT4, TSH",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Free Testosterone",
+  "rate": 1950,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "FSH",
+  "rate": 600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "G-6 PD Qualitaitve",
+  "rate": 650,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "G_6 PD Quantitative",
+  "rate": 850,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "GBP (General Blood Picture)",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "GGT (Gamma GT)",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Globulin",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Glucose Fasting/PP/Random (Each)",
+  "rate": 70,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Glycosylated Heamoglobin (HbA1c)",
+  "rate": 600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Gram Stain",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Growth Hormones",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "GTT (Glucose Tolerance Test)",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Genexpert Combo Test for Sputum",
+  "rate": 7000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Haemogram (CBC)ESR Wintrobes",
+  "rate": 400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Hb (Electrophoresis)",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Hb (Haemoglobin)",
+  "rate": 100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "HbA1C",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Hbe Antibody",
+  "rate": 1400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "HBsAg for ELISA",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "HbeAg",
+  "rate": 1400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "HBsAg (Australia Antigen)",
+  "rate": 300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "HCV (Anti Hepatitis Antibody)",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "HDL Cholesterol",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Hepatitis HbeAg ELISA",
+  "rate": 1400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Herpes 1+2 lgG & lgM",
+  "rate": 1400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Herpes 1+2 lgM",
+  "rate": 450,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "HIV 1+2 (AIDS)",
+  "rate": 400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "HIV 1+2 (Weston Blot Test)",
+  "rate": 3200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "HLA B-27",
+  "rate": 2200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Homocystine",
+  "rate": 2500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Hypertension Profile",
+  "rate": 1600,
+  "cat": "Health Package"
+ },
+ {
+  "name": "lgA (Immunoglobulin A)",
+  "rate": 700,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "lgE (Immunoglobulin E)",
+  "rate": 1300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Infertility Profile (LH, FSH, & Prolactin)",
+  "rate": 1600,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Infertility Profile Package",
+  "rate": 5000,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Ionic Calcium",
+  "rate": 270,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Iron",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Iron Profile",
+  "rate": 2000,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Kalazar (Aldehyde Chopra Test)",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Kidney Function Test (KFT)",
+  "rate": 800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "L.F.T. (Liver Function Test)Bil T/D/I/Ast/Alt/Alp",
+  "rate": 400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "L.F.T Complete",
+  "rate": 600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "LA (Lupus Anticougulant)",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "LDH (Lactic Dehydrogenase)",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "LE Cells",
+  "rate": 300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Lethium",
+  "rate": 850,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "LH (Luteinising Hormones )",
+  "rate": 600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Lipase",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Lipid Profile",
+  "rate": 600,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Magnisium",
+  "rate": 600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Malarial Parasite (MP) SMEAR",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Malignant Cell",
+  "rate": 700,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Master Health Checkup",
+  "rate": 1000,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Master Health Checkup",
+  "rate": 1500,
+  "cat": "Health Package"
+ },
+ {
+  "name": "MF By Card",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Mirco Filarial (MF) SMEAR",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Mirco Protine",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "MP By Card",
+  "rate": 400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Nasal Smear for AFB",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Nasal Swab C/S",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "NS1 Antigen Dengue",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "PAP Smear",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "PCR for Tuberculosis",
+  "rate": 2500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "PCV",
+  "rate": 50,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Phosphorus",
+  "rate": 300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Plasma Fibrinogen",
+  "rate": 800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Plasma Insulin",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Platelate Count",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Potassium",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "PPD (Montoux Test)",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "PP Blood Sugar",
+  "rate": 70,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Pre-Surgical Profile - 1",
+  "rate": 1800,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Pre-Surgical Profile - 2",
+  "rate": 2200,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Pre-Surgical Profile - 2",
+  "rate": 2200,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Pre-Surgical Profile - 1",
+  "rate": 1600,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Pre- Surgical Profile - 3",
+  "rate": 1800,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Pregnancy By card Test",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Presurgical Profile -2",
+  "rate": 2000,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Pro- Calcitonin",
+  "rate": 4000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Profile – 1",
+  "rate": 200,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Profile – 2",
+  "rate": 400,
+  "cat": "Health Package"
+ },
+ {
+  "name": "Progesterone",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Prolactin (PRL)",
+  "rate": 800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Protein",
+  "rate": 110,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Protein Electophoresis",
+  "rate": 1400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "PSA (Prostate Specific Antigen)",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "PT & PC with INR",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "PTH (Parathyroid Hormones)",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Pus C/S",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Pus R/M",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "RA – (Rheumatoid Factore) Latex Test",
+  "rate": 400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "RA – Factore Test (Quantitative)",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Random Blood Sugar (RBS)",
+  "rate": 70,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "RBCs Count",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Renal Function Test (RFT/KFT)11pra,KFT(6 pra)",
+  "rate": 800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "SCL – 70",
+  "rate": 1500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Semen C/S",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Semen Examination /profile",
+  "rate": 300,
+  "cat": "Health Package"
+ },
+ {
+  "name": "SGOT",
+  "rate": 110,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "SGPT",
+  "rate": 110,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "SKIN SCRAPING FUNGUS",
+  "rate": 550,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "SKIN BIOPSY",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "SMEAR FOR AFB",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "SMEAR FOR GRAM,STAINING",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "SODIUM",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "SPUTUM C/S",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Sputum Examination for AFB",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Stool C/S",
+  "rate": 500,
+  "cat": "Stool Test"
+ },
+ {
+  "name": "Stool Occuit Blood",
+  "rate": 200,
+  "cat": "Stool Test"
+ },
+ {
+  "name": "Stool OVA",
+  "rate": 100,
+  "cat": "Stool Test"
+ },
+ {
+  "name": "Stool Cyst",
+  "rate": 100,
+  "cat": "Stool Test"
+ },
+ {
+  "name": "Stool R/M",
+  "rate": 200,
+  "cat": "Stool Test"
+ },
+ {
+  "name": "Stool Reducing Substance",
+  "rate": 100,
+  "cat": "Stool Test"
+ },
+ {
+  "name": "Sugar Market Profile",
+  "rate": 1050,
+  "cat": "Health Package"
+ },
+ {
+  "name": "T3",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "T3, T4, TSH",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "T4",
+  "rate": 250,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "TB GOLD",
+  "rate": 2800,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Testesterone",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Throat Swab C/S",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "TIBC",
+  "rate": 1000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "TLC (Total Leucocytes Count)",
+  "rate": 50,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Tourch lgG",
+  "rate": 2000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Tourch lgG, lgM",
+  "rate": 2500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Tourch lgM",
+  "rate": 2000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "(VDRL Crard Test)",
+  "rate": 300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Triglycerides (Tg)",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Triple Test (HCG, AFP & U-E3)",
+  "rate": 2500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Troponin l (Card Test)",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Troponin T (Crad Test)",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "TSH",
+  "rate": 300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "TSH (SENSITIVITY)",
+  "rate": 400,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Typhidot lgG",
+  "rate": 350,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Typhidot lgG & lgM",
+  "rate": 500,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Typhidot lgM",
+  "rate": 350,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Urea",
+  "rate": 110,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Uric Acid",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Urinary Albumin",
+  "rate": 200,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine for Bence Hones Protein",
+  "rate": 400,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urinary Amylase",
+  "rate": 500,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urinary Calcium",
+  "rate": 150,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine – 24 Hrs Albumin",
+  "rate": 200,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine C/S",
+  "rate": 500,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine Colony Count",
+  "rate": 500,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine for Chyle",
+  "rate": 200,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine Micro Albumin",
+  "rate": 250,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine Occult Blood",
+  "rate": 200,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine for Pregnancy",
+  "rate": 150,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine R/M",
+  "rate": 100,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Urine - 24 Hrs Protein",
+  "rate": 200,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "UACR",
+  "rate": 525,
+  "cat": "Urine Test"
+ },
+ {
+  "name": "Vaginal Swab c/s",
+  "rate": 600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Viral Maker",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Viral Load for Hepatitis B",
+  "rate": 4200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Valporic Acid",
+  "rate": 1100,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "VDRL /RPR Test",
+  "rate": 300,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Vitamin – A",
+  "rate": 2000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Vitamin – B12",
+  "rate": 1200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Vitamin – B2",
+  "rate": 2000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Vitamin – B4",
+  "rate": 2000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Vitamin – C",
+  "rate": 2000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Vitamin – D",
+  "rate": 1700,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Vitamin – D3",
+  "rate": 1600,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Vitamin – E",
+  "rate": 6000,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Vomit Smears Exam",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Widal Test (Slide Method)",
+  "rate": 150,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Reticlocyte Count (Retic Count)",
+  "rate": 200,
+  "cat": "Blood Test"
+ },
+ {
+  "name": "Chest X-Ray (Digital)",
+  "rate": null,
+  "cat": "Digital X-Ray"
+ },
+ {
+  "name": "Knee X-Ray (Digital)",
+  "rate": null,
+  "cat": "Digital X-Ray"
+ },
+ {
+  "name": "Spine X-Ray (Digital)",
+  "rate": null,
+  "cat": "Digital X-Ray"
+ },
+ {
+  "name": "Abdomen X-Ray (Digital)",
+  "rate": null,
+  "cat": "Digital X-Ray"
+ },
+ {
+  "name": "Skull / Sinus X-Ray (Digital)",
+  "rate": null,
+  "cat": "Digital X-Ray"
+ },
+ {
+  "name": "Other X-Ray (Digital)",
+  "rate": null,
+  "cat": "Digital X-Ray"
+ }
+]

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Sample Collection — Shlok Path Labs & Digital X-Ray, Lucknow</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="page-hero">
+  <h2 data-i18n="coll_title"></h2>
+  <p data-i18n="coll_sub"></p>
+</div>
+
+<section>
+  <div class="container">
+    <div class="form-card">
+      <form id="collForm">
+        <label data-i18n="f_name"></label>
+        <input type="text" id="name" required maxlength="100">
+        <label data-i18n="f_phone"></label>
+        <input type="tel" id="phone" required pattern="[0-9]{10}" maxlength="10" placeholder="10 digit mobile">
+        <label data-i18n="f_addr"></label>
+        <textarea id="address" required maxlength="300" placeholder="Full home address with landmark"></textarea>
+        <label data-i18n="f_tests"></label>
+        <div class="test-picker" id="testPicker"></div>
+        <label data-i18n="f_date"></label>
+        <input type="date" id="date" required>
+        <label data-i18n="f_notes"></label>
+        <textarea id="notes" maxlength="500"></textarea>
+        <button type="submit" class="btn btn-green" style="width:100%;margin-top:18px" data-i18n="submit_coll"></button>
+      </form>
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+</section>
+
+<script src="/js/main.js"></script>
+<script>
+initPage('coll');
+loadTestPicker('testPicker');
+document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+document.getElementById('collForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const msg = document.getElementById('msg');
+  msg.className = 'msg';
+  const tests = pickedTests('testPicker');
+  if (!tests) { msg.className = 'msg err'; msg.textContent = getLang()==='hi' ? 'कम से कम एक टेस्ट चुनें।' : 'Please select at least one test.'; return; }
+  const body = {
+    name: document.getElementById('name').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    tests: tests,
+    date: document.getElementById('date').value,
+    notes: document.getElementById('notes').value.trim()
+  };
+  try {
+    const r = await fetch('/api/collection', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const j = await r.json();
+    if (!j.ok) throw new Error();
+    const hi = getLang() === 'hi';
+    let html = hi
+      ? `✅ <b>रिक्वेस्ट मिल गई!</b> Request ID: <b>#${j.id}</b><br>हमारा स्टाफ कॉल करके समय बताएगा। (घर से सैंपल पर मामूली चार्ज लगता है)`
+      : `✅ <b>Request received!</b> Request ID: <b>#${j.id}</b><br>Our staff will call to confirm timing. (Nominal charge applies for home visit)`;
+    const waMsg = `Hello! I have requested home sample collection.\nRequest ID: #${j.id}\nName: ${body.name}\nAddress: ${body.address}\nTests: ${body.tests}\nDate: ${body.date}`;
+    const waLabel = hi ? '💬 WhatsApp पर भेजें' : '💬 Send on WhatsApp';
+    html += `<br><a class="btn" style="background:#25d366;color:#fff;margin-top:10px" target="_blank" href="https://wa.me/${j.whatsapp}?text=${encodeURIComponent(waMsg)}">${waLabel}</a>`;
+    msg.className = 'msg ok'; msg.innerHTML = html;
+    this.reset();
+    document.getElementById('date').min = new Date().toISOString().split('T')[0];
+    msg.scrollIntoView({ behavior: 'smooth' });
+  } catch (err) {
+    msg.className = 'msg err';
+    msg.textContent = getLang()==='hi' ? 'कुछ गलत हुआ — दोबारा कोशिश करें या कॉल करें: 7905010042' : 'Something went wrong — try again or call 7905010042';
+  }
+});
+</script>
+</body>
+</html>
