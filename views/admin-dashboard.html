@@ -209,7 +209,7 @@ async function loadReports() {
   updateCounts();
 }
 function waReport(phone, code, name) {
-  const msg = `Dear ${name},\nYour report is ready. Download it here:\n${location.origin}/reports.html\n\nMobile: ${phone}\nReport Code: *${code}*\n\nThank you,\nShlok Path Labs & Digital X-Ray`;
+  const msg = `Dear ${name},\nYour report is ready. Download it here:\n${location.origin}/reports\n\nMobile: ${phone}\nReport Code: *${code}*\n\nThank you,\nShlok Path Labs & Digital X-Ray`;
   window.open('https://wa.me/91' + phone + '?text=' + encodeURIComponent(msg), '_blank');
 }
 async function delReport(id) {

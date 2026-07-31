@@ -23,7 +23,17 @@ app.use(session({
   saveUninitialized: false,
   cookie: { httpOnly: true, maxAge: 1000 * 60 * 60 * 8 }
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+// Clean URLs: redirect /page.html -> /page (and /index.html -> /), preserving query string
+app.use((req, res, next) => {
+  if (req.path.length > 5 && req.path.endsWith('.html')) {
+    const clean = req.path.slice(0, -5);
+    const qs = req.originalUrl.slice(req.path.length);
+    return res.redirect(301, (clean === '/index' ? '/' : clean) + qs);
+  }
+  next();
+});
+// Serve pages without the .html extension (e.g. /collection -> collection.html)
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 
 // ---------- helpers ----------
 const cleanPhone = p => String(p || '').replace(/\D/g, '').slice(-10);

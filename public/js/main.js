@@ -144,10 +144,10 @@ function buildHeader(active) {
     <button class="menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
     <nav class="nav-links" id="navLinks">
       <a href="/" class="${active === 'home' ? 'active' : ''}" data-i18n="nav_home"></a>
-      <a href="/tests.html" class="${active === 'tests' ? 'active' : ''}" data-i18n="nav_tests"></a>
-      <a href="/booking.html" class="${active === 'book' ? 'active' : ''}" data-i18n="nav_book"></a>
-      <a href="/collection.html" class="${active === 'coll' ? 'active' : ''}" data-i18n="nav_collection"></a>
-      <a href="/reports.html" class="${active === 'rep' ? 'active' : ''}" data-i18n="nav_reports"></a>
+      <a href="/tests" class="${active === 'tests' ? 'active' : ''}" data-i18n="nav_tests"></a>
+      <a href="/booking" class="${active === 'book' ? 'active' : ''}" data-i18n="nav_book"></a>
+      <a href="/collection" class="${active === 'coll' ? 'active' : ''}" data-i18n="nav_collection"></a>
+      <a href="/reports" class="${active === 'rep' ? 'active' : ''}" data-i18n="nav_reports"></a>
       <button class="lang-btn" id="langBtn" onclick="setLang(getLang()==='hi'?'en':'hi')"></button>
     </nav>
   </div></header>`;
@@ -164,10 +164,10 @@ function buildFooter() {
     </div>
     <div>
       <h5 data-i18n="foot_links"></h5>
-      <a href="/tests.html" data-i18n="nav_tests"></a>
-      <a href="/booking.html" data-i18n="nav_book"></a>
-      <a href="/collection.html" data-i18n="nav_collection"></a>
-      <a href="/reports.html" data-i18n="nav_reports"></a>
+      <a href="/tests" data-i18n="nav_tests"></a>
+      <a href="/booking" data-i18n="nav_book"></a>
+      <a href="/collection" data-i18n="nav_collection"></a>
+      <a href="/reports" data-i18n="nav_reports"></a>
     </div>
     <div>
       <h5 data-i18n="foot_contact"></h5>
