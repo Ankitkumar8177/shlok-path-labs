@@ -97,11 +97,10 @@ const I18N = {
   coll_sub: { en: 'Our phlebotomist will visit your home (nominal extra charge)', hi: 'हमारा स्टाफ आपके घर आएगा (मामूली अतिरिक्त चार्ज)' },
   // reports page
   rep_title: { en: 'Download Your Report', hi: 'अपनी रिपोर्ट डाउनलोड करें' },
-  rep_sub: { en: 'Enter your mobile number and the report code given by the lab', hi: 'अपना मोबाइल नंबर और लैब से मिला रिपोर्ट कोड डालें' },
-  f_code: { en: 'Report Code *', hi: 'रिपोर्ट कोड *' },
+  rep_sub: { en: 'Enter your name and mobile number (as given at the lab)', hi: 'अपना नाम और मोबाइल नंबर डालें (जैसा लैब में दिया था)' },
   rep_find: { en: '🔍 Find Report', hi: '🔍 रिपोर्ट खोजें' },
   rep_dl: { en: '⬇️ Download', hi: '⬇️ डाउनलोड' },
-  rep_none: { en: 'No report found. Check number & code, or call the lab.', hi: 'कोई रिपोर्ट नहीं मिली। नंबर और कोड जांचें, या लैब को कॉल करें।' },
+  rep_none: { en: 'No report found. Check name & number, or call the lab.', hi: 'कोई रिपोर्ट नहीं मिली। नाम और नंबर जांचें, या लैब को कॉल करें।' },
   // gallery
   gal_eyebrow: { en: 'Take A Look', hi: 'एक नज़र' },
   gal_title: { en: 'Our Lab — Photos', hi: 'हमारी लैब — तस्वीरें' },

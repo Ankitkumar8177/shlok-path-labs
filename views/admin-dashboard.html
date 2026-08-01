@@ -204,14 +204,14 @@ async function setStatus(kind, id, status) {
 /* ---- reports ---- */
 async function loadReports() {
   const rows = await api('/admin/api/reports');
-  $('reportsTable').innerHTML = table(rows, ['#', 'Patient', 'Phone', 'Code', 'File', 'Date', ''],
-    r => [r.id, esc(r.patient_name), r.phone, `<b>${r.code}</b>`, esc(r.original_name), r.created_at,
-      `<button class="small-btn sb-green" onclick="waReport('${r.phone}','${r.code}','${esc(r.patient_name)}')">💬 WhatsApp</button>
+  $('reportsTable').innerHTML = table(rows, ['#', 'Patient', 'Phone', 'File', 'Date', ''],
+    r => [r.id, esc(r.patient_name), r.phone, esc(r.original_name), r.created_at,
+      `<button class="small-btn sb-green" onclick="waReport('${r.phone}','${esc(r.patient_name)}')">💬 WhatsApp</button>
        <button class="small-btn sb-red" onclick="delReport(${r.id})">🗑</button>`]);
   updateCounts();
 }
-function waReport(phone, code, name) {
-  const msg = `Dear ${name},\nYour report is ready. Download it here:\n${location.origin}/reports\n\nMobile: ${phone}\nReport Code: *${code}*\n\nThank you,\nShlok Path Labs & Digital X-Ray`;
+function waReport(phone, name) {
+  const msg = `Dear ${name},\nYour report is ready. Download it here:\n${location.origin}/reports\n\nJust enter your name (${name}) and mobile number (${phone}) to download.\n\nThank you,\nShlok Path Labs & Digital X-Ray`;
   window.open('https://wa.me/91' + phone + '?text=' + encodeURIComponent(msg), '_blank');
 }
 async function delReport(id) {
@@ -230,7 +230,7 @@ $('repForm').addEventListener('submit', async e => {
   const m = $('repMsg');
   if (j.ok) {
     m.className = 'msg ok';
-    m.innerHTML = `✅ Uploaded successfully! <b>Report Code: ${j.code}</b> — click the 💬 WhatsApp button below to send it to the patient.`;
+    m.innerHTML = `✅ Uploaded successfully! The patient can download it using their <b>name + mobile number</b>. Click the 💬 WhatsApp button below to send them the link.`;
     e.target.reset(); loadReports();
   } else { m.className = 'msg err'; m.textContent = j.error || 'Upload failed'; }
 });

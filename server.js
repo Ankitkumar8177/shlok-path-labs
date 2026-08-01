@@ -115,16 +115,16 @@ app.post('/api/collection', (req, res) => {
 
 app.post('/api/report-find', (req, res) => {
   const phone = cleanPhone(req.body.phone);
-  const code = String(req.body.code || '').trim().toUpperCase();
-  if (!phone || !code) return res.status(400).json({ error: 'missing' });
-  const rows = db.prepare('SELECT id, patient_name, original_name, created_at FROM reports WHERE phone=? AND code=?').all(phone, code);
+  const name = String(req.body.name || '').trim();
+  if (!phone || !name) return res.status(400).json({ error: 'missing' });
+  const rows = db.prepare('SELECT id, patient_name, original_name, created_at FROM reports WHERE phone=? AND LOWER(TRIM(patient_name))=LOWER(?)').all(phone, name);
   res.json({ reports: rows });
 });
 
 app.get('/api/report-download/:id', (req, res) => {
   const phone = cleanPhone(req.query.phone);
-  const code = String(req.query.code || '').trim().toUpperCase();
-  const row = db.prepare('SELECT * FROM reports WHERE id=? AND phone=? AND code=?').get(req.params.id, phone, code);
+  const name = String(req.query.name || '').trim();
+  const row = db.prepare('SELECT * FROM reports WHERE id=? AND phone=? AND LOWER(TRIM(patient_name))=LOWER(?)').get(req.params.id, phone, name);
   if (!row) return res.status(404).send('Report not found');
   res.download(path.join(UPLOAD_DIR, row.filename), row.original_name);
 });
