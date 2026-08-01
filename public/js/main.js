@@ -6,6 +6,7 @@ const I18N = {
   nav_book: { en: 'Book Test', hi: 'टेस्ट बुक करें' },
   nav_collection: { en: 'Home Collection', hi: 'घर से सैंपल' },
   nav_reports: { en: 'Download Report', hi: 'रिपोर्ट डाउनलोड' },
+  nav_admin: { en: 'Admin Login', hi: 'एडमिन लॉगिन' },
   top_timing: { en: '⏰ 6:00 AM – 9:00 PM | Sunday Open', hi: '⏰ सुबह 6 – रात 9 बजे | संडे खुला' },
   top_phone: { en: '📞 7905010042', hi: '📞 7905010042' },
   // hero
@@ -168,6 +169,7 @@ function buildFooter() {
       <a href="/booking" data-i18n="nav_book"></a>
       <a href="/collection" data-i18n="nav_collection"></a>
       <a href="/reports" data-i18n="nav_reports"></a>
+      <a href="/admin">🔐 <span data-i18n="nav_admin"></span></a>
     </div>
     <div>
       <h5 data-i18n="foot_contact"></h5>
