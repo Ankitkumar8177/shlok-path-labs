@@ -69,6 +69,7 @@ const I18N = {
   doc2_q: { en: 'MD Pathology (BLDE)', hi: 'MD पैथोलॉजी (BLDE)' },
   // contact
   contact_eyebrow: { en: 'Get In Touch', hi: 'संपर्क करें' },
+  get_directions: { en: '📍 Get Directions', hi: '📍 रास्ता देखें (Directions)' },
   contact_title: { en: 'Visit Us / Contact', hi: 'हमसे संपर्क करें' },
   addr_t: { en: 'Address', hi: 'पता' },
   addr_v: { en: 'Near Lucknow Surgical Hospital, H.P. Petrol Pump, Kanpur Road, Banthara, Lucknow (UP)', hi: 'निकट लखनऊ सर्जिकल अस्पताल, एच.पी. पेट्रोल पम्प, कानपुर रोड, बन्थरा, लखनऊ (उ.प्र.)' },
