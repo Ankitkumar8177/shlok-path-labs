@@ -97,7 +97,8 @@ const I18N = {
   coll_sub: { en: 'Our phlebotomist will visit your home (nominal extra charge)', hi: 'हमारा स्टाफ आपके घर आएगा (मामूली अतिरिक्त चार्ज)' },
   // reports page
   rep_title: { en: 'Download Your Report', hi: 'अपनी रिपोर्ट डाउनलोड करें' },
-  rep_sub: { en: 'Enter your name and mobile number (as given at the lab)', hi: 'अपना नाम और मोबाइल नंबर डालें (जैसा लैब में दिया था)' },
+  rep_sub: { en: 'Enter your mobile number to find your report', hi: 'अपनी रिपोर्ट पाने के लिए अपना मोबाइल नंबर डालें' },
+  f_name_opt: { en: 'Name (optional)', hi: 'नाम (वैकल्पिक)' },
   rep_find: { en: '🔍 Find Report', hi: '🔍 रिपोर्ट खोजें' },
   rep_dl: { en: '⬇️ Download', hi: '⬇️ डाउनलोड' },
   rep_none: { en: 'No report found. Check name & number, or call the lab.', hi: 'कोई रिपोर्ट नहीं मिली। नाम और नंबर जांचें, या लैब को कॉल करें।' },

@@ -113,18 +113,26 @@ app.post('/api/collection', (req, res) => {
   res.json({ ok: true, id: r.lastInsertRowid, whatsapp: getSetting('whatsapp') });
 });
 
+// Mobile number is the strict key (must match exactly). Name is only a soft
+// filter to narrow results — a small spelling mistake in the name is tolerated.
 app.post('/api/report-find', (req, res) => {
   const phone = cleanPhone(req.body.phone);
   const name = String(req.body.name || '').trim();
-  if (!phone || !name) return res.status(400).json({ error: 'missing' });
-  const rows = db.prepare('SELECT id, patient_name, original_name, created_at FROM reports WHERE phone=? AND LOWER(TRIM(patient_name))=LOWER(?)').all(phone, name);
+  if (!phone) return res.status(400).json({ error: 'missing' });
+  const all = db.prepare('SELECT id, patient_name, original_name, created_at FROM reports WHERE phone=? ORDER BY id DESC').all(phone);
+  const norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const nn = norm(name);
+  let rows = all;
+  if (nn) {
+    const matched = all.filter(r => { const rn = norm(r.patient_name); return rn && (rn.includes(nn) || nn.includes(rn)); });
+    if (matched.length) rows = matched; // exact-ish name match narrows; otherwise show all for this phone
+  }
   res.json({ reports: rows });
 });
 
 app.get('/api/report-download/:id', (req, res) => {
   const phone = cleanPhone(req.query.phone);
-  const name = String(req.query.name || '').trim();
-  const row = db.prepare('SELECT * FROM reports WHERE id=? AND phone=? AND LOWER(TRIM(patient_name))=LOWER(?)').get(req.params.id, phone, name);
+  const row = db.prepare('SELECT * FROM reports WHERE id=? AND phone=?').get(req.params.id, phone);
   if (!row) return res.status(404).send('Report not found');
   res.download(path.join(UPLOAD_DIR, row.filename), row.original_name);
 });
