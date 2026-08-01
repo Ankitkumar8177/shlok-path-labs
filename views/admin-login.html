@@ -1,44 +1,146 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Login — Shlok Path Labs</title>
 <link rel="stylesheet" href="/css/style.css">
 <style>
-  body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #0b6e4f, #14a37f); }
-  .login-box { background: #fff; border-radius: 14px; padding: 32px; width: 100%; max-width: 380px; box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+  body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #0b6e4f, #14a37f); padding: 16px; }
+  .login-box { background: #fff; border-radius: 16px; padding: 32px; width: 100%; max-width: 390px; box-shadow: 0 14px 40px rgba(0,0,0,.25); }
   .login-box h2 { color: var(--green); text-align: center; margin-bottom: 4px; }
-  .login-box p { text-align: center; color: var(--gray); font-size: 13px; margin-bottom: 14px; }
+  .login-box .tag { text-align: center; color: var(--gray); font-size: 13px; margin-bottom: 18px; }
+  .otp-input { text-align: center; font-size: 26px; letter-spacing: 10px; font-weight: 700; }
+  .link-btn { background: none; border: none; color: var(--green); font-weight: 600; cursor: pointer; font-size: 13.5px; text-decoration: underline; padding: 4px; }
+  .row-between { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+  .hide { display: none; }
+  .sent-to { background: #e5f5ee; border-radius: 9px; padding: 10px 12px; font-size: 13.5px; color: #0a5a41; margin-bottom: 6px; }
+  .divider { text-align: center; color: #aab; font-size: 12px; margin: 18px 0 8px; position: relative; }
 </style>
 </head>
 <body>
   <div class="login-box">
     <h2>🔐 Admin Panel</h2>
-    <p>Shlok Path Labs &amp; Digital X-Ray</p>
-    <form id="loginForm">
-      <label>Username</label>
-      <input type="text" id="username" required autocomplete="username">
-      <label>Password</label>
-      <input type="text" id="password" required autocomplete="current-password" style="-webkit-text-security:disc">
-      <button type="submit" class="btn btn-green" style="width:100%;margin-top:18px">Login</button>
-    </form>
+    <p class="tag">Shlok Path Labs &amp; Digital X-Ray</p>
+
+    <!-- STEP 1: request OTP -->
+    <div id="stepEmail">
+      <label>Email</label>
+      <input type="email" id="email" autocomplete="email" placeholder="Lab email">
+      <button class="btn btn-green" id="sendBtn" style="width:100%;margin-top:16px">📧 Send OTP</button>
+    </div>
+
+    <!-- STEP 2: enter OTP -->
+    <div id="stepOtp" class="hide">
+      <div class="sent-to">✅ OTP sent to <b id="sentTo"></b>. Check the inbox.</div>
+      <label>Enter 6-digit OTP</label>
+      <input type="tel" id="otp" class="otp-input" maxlength="6" inputmode="numeric" placeholder="------">
+      <button class="btn btn-green" id="verifyBtn" style="width:100%;margin-top:14px">✅ Verify &amp; Login</button>
+      <div class="row-between">
+        <button class="link-btn" id="changeEmail">← Change email</button>
+        <button class="link-btn" id="resendBtn">Resend OTP</button>
+      </div>
+    </div>
+
     <div class="msg" id="msg"></div>
+
+    <!-- Password fallback -->
+    <div class="divider">— or —</div>
+    <div style="text-align:center"><button class="link-btn" id="togglePw">Login with password instead</button></div>
+    <form id="pwForm" class="hide" style="margin-top:10px">
+      <label>Username</label>
+      <input type="text" id="username" autocomplete="username">
+      <label>Password</label>
+      <input type="text" id="password" autocomplete="current-password" style="-webkit-text-security:disc">
+      <button type="submit" class="btn btn-green" style="width:100%;margin-top:16px">Login</button>
+    </form>
   </div>
+
 <script>
-document.getElementById('loginForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-  const msg = document.getElementById('msg');
-  msg.className = 'msg';
+const $ = id => document.getElementById(id);
+const msg = $('msg');
+function showMsg(text, ok) { msg.className = 'msg ' + (ok ? 'ok' : 'err'); msg.textContent = text; }
+function clearMsg() { msg.className = 'msg'; msg.textContent = ''; }
+
+// Prefill the authorized (masked) email and check if OTP login is available
+let otpEnabled = false;
+(async function(){
+  try {
+    const info = await (await fetch('/admin/api/otp-info')).json();
+    otpEnabled = info.enabled;
+    if (info.email_masked) $('email').value = info.email_masked;
+    if (!otpEnabled) {
+      // OTP not configured yet — guide to password
+      $('stepEmail').innerHTML = '<div class="sent-to" style="background:#fff8e6;color:#8a6d00">📧 Email OTP is not set up yet. Please log in with password below.</div>';
+    }
+  } catch (e) {}
+})();
+
+// If the field still shows the masked email when sending, send blank so the
+// server uses its authorized email; otherwise send what the user typed.
+function emailToSend() {
+  const v = $('email').value.trim();
+  return v.includes('*') ? '' : v;
+}
+
+async function sendOtp() {
+  clearMsg();
+  $('sendBtn').disabled = true; $('resendBtn') && ($('resendBtn').disabled = true);
+  try {
+    const r = await fetch('/admin/api/send-otp', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: emailToSend() || $('email').value.trim() })
+    });
+    const j = await r.json();
+    if (j.ok) {
+      $('stepEmail').classList.add('hide');
+      $('stepOtp').classList.remove('hide');
+      $('sentTo').textContent = $('email').value.trim();
+      $('otp').focus();
+      showMsg('OTP sent! It is valid for 10 minutes.', true);
+    } else { showMsg(j.error || 'Could not send OTP', false); }
+  } catch (e) { showMsg('Network error, please try again.', false); }
+  $('sendBtn').disabled = false; $('resendBtn') && ($('resendBtn').disabled = false);
+}
+
+async function verifyOtp() {
+  clearMsg();
+  const otp = $('otp').value.trim();
+  if (otp.length !== 6) { showMsg('Please enter the 6-digit OTP.', false); return; }
+  $('verifyBtn').disabled = true;
+  try {
+    const r = await fetch('/admin/api/verify-otp', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: $('email').value.trim(), otp })
+    });
+    const j = await r.json();
+    if (j.ok) { location.href = '/admin/dashboard'; }
+    else { showMsg(j.error || 'Wrong OTP', false); $('verifyBtn').disabled = false; }
+  } catch (e) { showMsg('Network error, please try again.', false); $('verifyBtn').disabled = false; }
+}
+
+$('sendBtn').addEventListener('click', sendOtp);
+$('resendBtn').addEventListener('click', sendOtp);
+$('verifyBtn').addEventListener('click', verifyOtp);
+$('otp').addEventListener('keydown', e => { if (e.key === 'Enter') verifyOtp(); });
+$('email').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendOtp(); } });
+$('email').addEventListener('focus', function(){ if (this.value.includes('*')) this.value = ''; });
+$('changeEmail').addEventListener('click', () => {
+  $('stepOtp').classList.add('hide'); $('stepEmail').classList.remove('hide'); clearMsg();
+});
+
+// Password fallback toggle
+$('togglePw').addEventListener('click', () => {
+  $('pwForm').classList.toggle('hide');
+});
+$('pwForm').addEventListener('submit', async function(e){
+  e.preventDefault(); clearMsg();
   const r = await fetch('/admin/api/login', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username: document.getElementById('username').value, password: document.getElementById('password').value })
+    body: JSON.stringify({ username: $('username').value, password: $('password').value })
   });
   if (r.ok) { location.href = '/admin/dashboard'; }
-  else {
-    const j = await r.json().catch(() => ({}));
-    msg.className = 'msg err'; msg.textContent = j.error || 'Login failed';
-  }
+  else { const j = await r.json().catch(() => ({})); showMsg(j.error || 'Login failed', false); }
 });
 </script>
 </body>

@@ -5,10 +5,41 @@ const bcrypt = require('bcryptjs');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 const db = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// ---------- Email OTP setup ----------
+// Configure via env vars (set these on Render): SMTP_USER + SMTP_PASS (a Gmail
+// App Password). Optional SMTP_HOST/SMTP_PORT for a non-Gmail provider.
+const SMTP_USER = process.env.SMTP_USER || '';
+const SMTP_PASS = process.env.SMTP_PASS || '';
+let mailer = null;
+if (SMTP_USER && SMTP_PASS) {
+  mailer = nodemailer.createTransport(
+    process.env.SMTP_HOST
+      ? { host: process.env.SMTP_HOST, port: parseInt(process.env.SMTP_PORT || '587'), secure: parseInt(process.env.SMTP_PORT || '587') === 465, auth: { user: SMTP_USER, pass: SMTP_PASS } }
+      : { service: 'gmail', auth: { user: SMTP_USER, pass: SMTP_PASS } }
+  );
+}
+// In-memory OTP store: email -> { code, expires, tries }
+const otpStore = new Map();
+const OTP_TTL_MS = 10 * 60 * 1000;   // 10 minutes
+const OTP_RESEND_MS = 60 * 1000;     // min 60s between sends
+const otpLastSent = new Map();
+function authorizedEmails() {
+  const raw = (db.prepare("SELECT value FROM settings WHERE key='admin_email'").get() || {}).value
+    || (db.prepare("SELECT value FROM settings WHERE key='email'").get() || {}).value || '';
+  return raw.split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
+}
+function maskEmail(e) {
+  const [u, d] = String(e).split('@');
+  if (!d) return e;
+  const shown = u.slice(0, Math.min(3, u.length));
+  return shown + '*'.repeat(Math.max(2, u.length - shown.length)) + '@' + d;
+}
 
 // Report files live under DATA_DIR so they persist on a host with a mounted disk.
 const DATA_DIR = process.env.DATA_DIR || __dirname;
@@ -113,6 +144,65 @@ app.post('/admin/api/login', (req, res) => {
   res.json({ ok: true });
 });
 app.post('/admin/api/logout', (req, res) => { req.session.destroy(() => res.json({ ok: true })); });
+
+// ---- Email OTP login ----
+// Tells the login page whether OTP is available and which (masked) email it goes to.
+app.get('/admin/api/otp-info', (req, res) => {
+  const emails = authorizedEmails();
+  const available = !!mailer || process.env.OTP_DEV_ECHO === '1';
+  res.json({ enabled: available && emails.length > 0, email_masked: emails[0] ? maskEmail(emails[0]) : '' });
+});
+
+app.post('/admin/api/send-otp', async (req, res) => {
+  const email = String(req.body.email || '').trim().toLowerCase();
+  if (!authorizedEmails().includes(email)) {
+    return res.status(403).json({ error: 'This email is not authorized for admin login.' });
+  }
+  // OTP_DEV_ECHO=1 is for LOCAL TESTING ONLY (prints OTP to server console, no email).
+  // NEVER set it on Render / production.
+  const devEcho = process.env.OTP_DEV_ECHO === '1';
+  if (!mailer && !devEcho) return res.status(503).json({ error: 'Email login is not set up yet. Please log in with password.' });
+  const last = otpLastSent.get(email) || 0;
+  if (Date.now() - last < OTP_RESEND_MS) {
+    return res.status(429).json({ error: 'Please wait a minute before requesting another OTP.' });
+  }
+  const code = ('' + Math.floor(100000 + Math.random() * 900000));
+  otpStore.set(email, { code, expires: Date.now() + OTP_TTL_MS, tries: 0 });
+  otpLastSent.set(email, Date.now());
+  if (!mailer && devEcho) { console.log(`[DEV OTP] ${email} -> ${code}`); return res.json({ ok: true }); }
+  try {
+    await mailer.sendMail({
+      from: `"Shlok Path Labs" <${SMTP_USER}>`,
+      to: email,
+      subject: `Your admin login OTP: ${code}`,
+      text: `Your Shlok Path Labs admin login OTP is: ${code}\n\nIt is valid for 10 minutes. If you did not request this, ignore this email.`,
+      html: `<div style="font-family:Arial,sans-serif;max-width:420px;margin:auto;border:1px solid #e0e0e0;border-radius:12px;overflow:hidden">
+        <div style="background:#0b6e4f;color:#fff;padding:16px 20px;font-size:17px;font-weight:bold">🔬 Shlok Path Labs — Admin Login</div>
+        <div style="padding:22px 20px;color:#222">
+          <p style="margin:0 0 10px">Your one-time password (OTP) is:</p>
+          <div style="font-size:32px;font-weight:bold;letter-spacing:6px;color:#0b6e4f;text-align:center;margin:14px 0">${code}</div>
+          <p style="color:#777;font-size:13px;margin:10px 0 0">Valid for 10 minutes. If you did not request this, please ignore this email.</p>
+        </div></div>`
+    });
+    res.json({ ok: true });
+  } catch (e) {
+    otpStore.delete(email);
+    res.status(500).json({ error: 'Could not send email. Check email setup, or use password login.' });
+  }
+});
+
+app.post('/admin/api/verify-otp', (req, res) => {
+  const email = String(req.body.email || '').trim().toLowerCase();
+  const code = String(req.body.otp || '').trim();
+  const rec = otpStore.get(email);
+  if (!rec || rec.expires < Date.now()) { otpStore.delete(email); return res.status(400).json({ error: 'OTP expired. Please request a new one.' }); }
+  if (rec.tries >= 5) { otpStore.delete(email); return res.status(429).json({ error: 'Too many wrong attempts. Please request a new OTP.' }); }
+  if (rec.code !== code) { rec.tries++; return res.status(401).json({ error: 'Wrong OTP. Please try again.' }); }
+  otpStore.delete(email);
+  const admin = db.prepare('SELECT username FROM admins LIMIT 1').get();
+  req.session.admin = admin ? admin.username : 'admin';
+  res.json({ ok: true });
+});
 app.post('/admin/api/change-password', requireAdmin, (req, res) => {
   const { old_password, new_password } = req.body;
   const row = db.prepare('SELECT * FROM admins WHERE username=?').get(req.session.admin);
@@ -265,7 +355,7 @@ app.get('/admin/api/settings', requireAdmin, (req, res) => {
   res.json(Object.fromEntries(rows.map(r => [r.key, r.value])));
 });
 app.post('/admin/api/settings', requireAdmin, (req, res) => {
-  const allowed = ['upi_id', 'whatsapp', 'phone', 'email', 'address', 'timing_en', 'timing_hi', 'reg_no', 'home_collection_charge'];
+  const allowed = ['upi_id', 'whatsapp', 'phone', 'email', 'address', 'timing_en', 'timing_hi', 'reg_no', 'home_collection_charge', 'admin_email'];
   const up = db.prepare('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value');
   for (const k of allowed) if (req.body[k] !== undefined) up.run(k, String(req.body[k]));
   res.json({ ok: true });
